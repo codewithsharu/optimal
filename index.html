@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techno Vision - Coding Contest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Garamond, serif;
+            background-color: #bcdff8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #607d8b;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .techno-logo {
+            max-width: 400px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 20px 0;
+            font-weight: normal;
+        }
+        header h2 {
+            font-size: 2em;
+            margin: 15px 0;
+        }
+        header h3 {
+            font-size: 1.8em;
+            margin: 15px 0;
+            font-weight: normal;
+        }
+        .logo-container {
+            margin-top: 30px;
+        }
+        .both-logos {
+            width: 150px;
+            height: 150px;
+            margin: 0 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        .navbar {
+            background-color: #0d47a1 !important;
+            padding: 15px 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+        }
+        .nav-link {
+            color: gold !important;
+            margin: 0 15px;
+        }
+        .nav-link:hover {
+            color: #ffd700 !important;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin: 13px;
+            animation: slideIn 1s ease-in-out forwards;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card:hover {
+            box-shadow: 0px 2px 3px 9px rgba(255, 217, 0, 0.664);
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+        .contests {
+            display: block;
+            height: 230px;
+        }
+        .prize {
+            background-image: url("images/background.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .prize a {
+            background-color: gold;
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .prize a:hover {
+            background-color: gold;
+            box-shadow: 0px 2px 3px 3px rgba(255, 217, 0, 0.664);
+        }
+        #timer {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 2rem;
+            background: linear-gradient(90deg, #2196f3, #21cbf3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .countdown-container {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+        .countdown-container h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #90cdf4;
+        }
+        .co-block {
+            width: 270px;
+            margin-left: 150px;
+        }
+        footer {
+            background-color: #1565c0;
+            color: gold;
+            padding: 20px 0;
+        }
+        .foot {
+            display: flex;
+            justify-content: space-around;
+        }
+        hr {
+            border-color: gold;
+            opacity: 1;
+        }
+        @media screen and (max-width: 600px) {
+            header, nav, body {
+                width: 100%;
+                max-width: 450px;
+                margin: 0 auto;
+            }
+            .co-block {
+                margin-left: 80px;
+            }
+            p {
+                font-size: 20px;
+            }
+            .foot {
+                flex-direction: column;
+            }
+            hr {
+                height: 5px;
+                background-color: gold;
+                border: none;
+                width: auto;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .techno-logo {
+                max-width: 300px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            header h2 {
+                font-size: 1.6em;
+            }
+            header h3 {
+                font-size: 1.4em;
+            }
+            .both-logos {
+                width: 100px;
+                height: 100px;
+                margin: 10px;
+            }
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .detail-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .detail-item i {
+            font-size: 2em;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        .contest-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .contest-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .contest-card:hover {
+            transform: translateY(-5px);
+        }
+        .read-more {
+            color: #0d47a1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .prize-section {
+            background: #0d47a1;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+        }
+        .prize-btn {
+            display: inline-block;
+            background: gold;
+            color: black;
+            padding: 10px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        .register-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        .or-divider {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        .register-btn {
+            display: inline-block;
+            background: #0d47a1;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .details-grid,
+            .contest-grid {
+                grid-template-columns: 1fr;
+            }
+            .register-section {
+                flex-direction: column;
+            }
+        }
+        /* Registration Styles */
+        .registration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 40px 0;
+        }
+        .qr-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        .qr-card img {
+            width: 200px;
+            height: 200px;
+        }
+        .or-section h3 {
+            color: #0d47a1;
+            font-size: 24px;
+        }
+        .register-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .register-button:hover {
+            background: #0056b3;
+            color: white;
+        }
+        /* Contest Details Styles */
+        .contest-details {
+            margin-top: 50px;
+        }
+        .contest-details h2 {
+            color: #0d47a1;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .blue-line {
+            border: none;
+            height: 2px;
+            background: #0d47a1;
+            margin: 20px auto;
+            width: 80%;
+        }
+        .details-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .detail-box {
+            text-align: center;
+            padding: 20px;
+            min-width: 200px;
+        }
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        .detail-box h4 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        .detail-box p {
+            margin: 5px 0;
+            color: #0d47a1;
+        }
+        .small-text {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            .registration-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .details-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .detail-box {
+                margin-bottom: 30px;
+            }
+        }
+        .icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .icon-box .icon {
+            font-size: 2rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+            text-decoration: none;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .icon-box .icon:hover {
+            box-shadow: 0px 0px 0px 3px rgba(255, 217, 0, 0.664);
+        }
+        .icon-box h5 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        .icon-box p {
+            margin: 5px 0;
+            color: #0d47a1;
+        }
+        .contests-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .contest-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 270px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .contest-card:hover {
+            box-shadow: 0px 2px 3px 9px rgba(255, 217, 0, 0.664);
+            transform: scale(1.05);
+        }
+        .contest-card h5 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .contest-card p {
+            font-size: 14px;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        .read-more {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .contests-container {
+                padding: 10px;
+            }
+            .contest-card {
+                width: 100%;
+                max-width: 270px;
+            }
+        }
+        .main-header {
+            background-color: #607d8b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .header-content {
+            background-image: url('./images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 100vw;
+            max-width: 100%;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .title {
+            font-size: 4em;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            font-family: 'Times New Roman', serif;
+            font-weight: lighter;
+        }
+        .header-content h2 {
+            font-size: 2em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            font-weight: normal;
+        }
+        .header-content h3 {
+            font-size: 1.8em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+        .header-content h4 {
+            font-size: 1.5em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            font-weight: normal;
+        }
+        .logo-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5em;
+                letter-spacing: 4px;
+            }
+            .header-content h2 {
+                font-size: 1.6em;
+            }
+            .header-content h3 {
+                font-size: 1.4em;
+            }
+            .header-content h4 {
+                font-size: 1.2em;
+            }
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            .logo-container {
+                gap: 30px;
+            }
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255,255,255,0.1) 50%, 
+                rgba(255,255,255,0.1) 75%, 
+                transparent 75%);
+            transform: rotate(-45deg);
+            z-index: 1;
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .main-title {
+            font-size: 4em;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            font-family: 'Times New Roman', serif;
+            font-weight: lighter;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .content h2 {
+            font-size: 2em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            font-weight: normal;
+        }
+        .content h3 {
+            font-size: 1.8em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+        .content h4 {
+            font-size: 1.5em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+            font-weight: normal;
+        }
+        .logo-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5em;
+                letter-spacing: 4px;
+            }
+            .content h2 {
+                font-size: 1.6em;
+            }
+            .content h3 {
+                font-size: 1.4em;
+            }
+            .content h4 {
+                font-size: 1.2em;
+            }
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            .logo-container {
+                gap: 30px;
+            }
+        }
+        .video-header {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .video-header video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        .title-logo {
+            max-width: 400px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        .header-content h1 {
+            font-size: 2.5em;
+            margin: 30px 0;
+            font-family: 'Times New Roman', serif;
+            font-weight: normal;
+        }
+        .header-content h2 {
+            font-size: 2em;
+            margin: 15px 0;
+            font-family: 'Times New Roman', serif;
+        }
+        .header-content h2 b {
+            font-weight: bold;
+        }
+        .logo-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .both-logos {
+            width: 150px;
+            height: 150px;
+            margin: 0 25px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @media (max-width: 768px) {
+            .title-logo {
+                max-width: 300px;
+            }
+            .header-content h1 {
+                font-size: 1.8em;
+            }
+            .header-content h2 {
+                font-size: 1.5em;
+            }
+            .both-logos {
+                width: 100px;
+                height: 100px;
+                margin: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">TECHNO VISION</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#details">Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#coordinators">Coordinators</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="video-header">
+        <video autoplay muted loop playsinline>
+            <source src="./images/header.mp4" type="video/mp4">
+        </video>
+    </header>
+    <div class="header-content">
+        <img src="./images/logo-2.png" alt="techno-vision" class="title-logo">
+        <h1>Organized By - Department of CSE</h1>
+        <h2><b>Aditya Institute of Technology And Management</b></h2>
+        <h2>In Collaboration with</h2>
+        <h2><b>CSI Hyderabad Chapter</b></h2>
+        <div class="logo-container">
+            <img class="both-logos" src="./images/csi.png" alt="CSI Logo">
+            <img class="both-logos" src="./images/aitam.png" alt="AITAM Logo">
+        </div>
+    </div>
+
+    <!-- Registration Section -->
+    <div class="container mt-5">
+        <div class="registration-container">
+            <div class="qr-card">
+                <h3>Scan to Register</h3>
+                <img src="./images/qr.png" alt="Registration QR Code">
+            </div>
+            <div class="or-section">
+                <h3>OR</h3>
+            </div>
+            <div class="button-section">
+                <a href="#" class="register-button">Register Now</a>
+            </div>
+        </div>
+
+        <!-- Contest Details Section -->
+        <div class="details-section">
+            <h2 class="text-center">Contest Details</h2>
+            <hr class="blue-line">
+            
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="icon-box">
+                        <a href="#" class="icon">
+                            <i class="bi bi-currency-exchange"></i>
+                        </a>
+                        <div>
+                            <h5><b>Fee's</b></h5>
+                            <p>CSI Members: ₹250</p>
+                            <p>NON-CSI Members: ₹300</p>
+                            <p>(Includes Participation kit,certificate & lunch)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="icon-box">
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Techno-Vision&dates=20250203T000000Z/20250204T000000Z&details=Event to be conducted in the AITAM clg by CSE&sf=true&output=xml" 
+                           target="_blank" class="icon">
+                            <i class="bi bi-calendar-event-fill"></i>
+                        </a>
+                        <div>
+                            <h5><b>Date</b></h5>
+                            <p>3rd February</p>
+                            <p>4th February</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="icon-box">
+                        <a href="https://maps.app.goo.gl/Jf6DKmV4jraHbyTP9" target="_blank" class="icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </a>
+                        <div>
+                            <h5><b>Venue</b></h5>
+                            <p>AITAM College D-block</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="icon-box">
+                        <a href="#" class="icon">
+                            <i class="bi bi-people-fill"></i>
+                        </a>
+                        <div>
+                            <h5><b>Team Size</b></h5>
+                            <p>1-4 members</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contests Section -->
+    <div class="container">
+        <h2 class="text-center mb-4">Contests</h2>
+        <div class="contests-container">
+            <div class="contest-card">
+                <h5>INNOVATE NOW</h5>
+                <p>Teams will present tech-based solutions through a PPT. Awards will be based on relevance, creativity, feasibility, and clarity.</p>
+                <a href="#" class="read-more">Read more</a>
+            </div>
+
+            <div class="contest-card">
+                <h5>MIND MASTER</h5>
+                <p>A technical quiz competition where participants answer tech-related questions. The fastest and most accurate responses win the game.</p>
+                <a href="#" class="read-more">Read more</a>
+            </div>
+
+            <div class="contest-card">
+                <h5>CODE WAR</h5>
+                <p>A coding contest where teams complete partially given code to solve problem statements and generate correct outputs to win.</p>
+                <a href="#" class="read-more">Read more</a>
+            </div>
+
+            <div class="contest-card">
+                <h5>DEBUG CHALLENGE</h5>
+                <p>A certain code of different languages will be given with errors in it, which should be debugged by the teams to set their victory.</p>
+                <a href="#" class="read-more">Read more</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prize Section -->
+    <div class="prize-section text-center my-5">
+        <h1>Win Upto ₹50,000 in Prizes!</h1>
+        <p>Participate in our Coding Contest and seize the glory!</p>
+        <a href="#" class="prize-btn">More Details</a>
+    </div>
+
+    <!-- Countdown Timer Section -->
+    <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="countdown-container text-center p-4" style="background-color: #1a237e; border-radius: 10px; color: white;">
+            <h3 style="margin-bottom: 10px;">Time Left:</h3>
+            <div id="timer" style="font-size: 24px; background-color: #2196f3; padding: 10px 20px; border-radius: 5px;">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Coordinators Section -->
+    <div id="coordinators" class="mt-5 mb-5" style="margin-bottom: 60px !important;">
+        <h2 class="text-center mb-4">Student Coordinators</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="card p-3 co-block" style="margin: 0 auto;">
+                    <img src="./images/pranav.jpg" alt="Student Coordinator 1" class="cordinaters img-fluid rounded-circle mx-auto d-block" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h5 class="mt-3">Kuna Pranav sai</h5>
+                    <p>Phone: 97043 47240</p>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="card p-3 co-block" style="margin: 0 auto;">
+                    <img src="./images/sanjana.jpg" alt="Student Coordinator 2" class="cordinaters img-fluid rounded-circle mx-auto d-block" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h5 class="mt-3">Tangudu Sai Sanjana</h5>
+                    <p>Phone: 94908 91479</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Updated Footer -->
+    <footer id="contact">    
+        <div class="d-flex foot">
+            <div class="container">
+                <p>Prof. V V Nageswara Rao</p>
+                <p>Director, Aditya Institute of Technology Management</p><br>
+                <p>Dr AS Srinivasa Rao</p>
+                <p>Principal, Aditya Institute of Technology Management</p><br>
+                <p>Dr Y Ramesh</p>
+                <p>Convener</p>
+                <p>HOD-CSE, Aditya Institute of Technology Management</p><br>
+                <p>Dr T Ravi Kumar</p>
+                <p>Coordinator, Aditya Institute of Technology Management</p>
+            </div><hr>
+            <div class="container">
+                <p>Aditya Institute of Technology and Management</p>
+                <p>Tekkali - 532 201, Srikakulam Dist., A.P.</p>
+                <p>Phone: 97043 47240</p>
+                <p>Email: csitechnovision@gmail.com</p>
+                <p>Website: <a href="http://adityatekkali.edu.in">adityatekkali.edu.in</a></p>
+            </div><hr>
+            <div class="container">
+                <p>Shri Budhakar Challapalil</p>
+                <p>Chairman, CSI Hyderabad Chapter</p><br>
+                <p>Dr Krishna Prasad</p>
+                <p>Vice Chairman, CSI Hyderabad Chapter</p><br>
+                <p>Dr DV Ramana</p>
+                <p>Secretary, CSI Hyderabad Chapter</p><br>
+                <p>Dr Srikanth Chintakindi</p>
+                <p>CSI Hyderabad Chapter Student Coordinator</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Card animation
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Countdown timer
+        const countdown = () => {
+            const eventDate = new Date("2025-02-03T00:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = eventDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById("timer").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById("timer").innerText = "Event Started!";
+            }
+        };
+        setInterval(countdown, 1000);
+    </script>
+</body>
+</html>
